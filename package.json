@@ -1,0 +1,67 @@
+{
+    "name": "tun-translator",
+    "version": "1.0.0",
+    "description": "",
+    "main": "app/main.js",
+    "license": "MIT",
+    "repository": "https://github.com/egoist/devdocs-app.git",
+    "scripts": {
+        "postinstall": "install-app-deps",
+        "test": "npm run lint",
+        "lint": "xo",
+        "start": "electron .",
+        "dist": "npm run dist:mac && npm run dist:deb && npm run dist:win",
+        "dist:mac": "build --mac",
+        "dist:linux": "build --linux deb tar.xz",
+        "dist:win": "build --win --ia32"
+    },
+    "devDependencies": {
+        "electron": "^1.6.2",
+        "electron-builder": "^15.4.3",
+        "electron-builder-squirrel-windows": "^15.3.0",
+        "electron-devtools-installer": "^2.1.0",
+        "eslint-config-rem": "^3.0.0",
+        "minimist": "^1.2.0",
+        "xo": "^0.17.1"
+    },
+    "xo": {
+        "extends": "rem",
+        "esnext": true
+    },
+    "build": {
+        "appId": "com.thephuc.tun-translator",
+        "productName": "Tun-translator",
+        "asar": true,
+        "dmg": {
+            "background": "build/background@2x.png",
+            "contents": [{
+                    "x": 410,
+                    "y": 150,
+                    "type": "link",
+                    "path": "/Applications"
+                },
+                {
+                    "x": 130,
+                    "y": 150,
+                    "type": "file"
+                }
+            ],
+            "window": {
+                "width": 494,
+                "height": 270
+            }
+        },
+        "mac": {
+            "category": "public.app-category.developer-tools"
+        },
+        "win": {
+            "target": "nsis"
+        },
+        "nsis": {
+            "oneClick": false
+        },
+        "linux": {
+            "category": "public.app-category.developer-tools"
+        }
+    }
+}
