@@ -1,7 +1,7 @@
 {
   "name": "Tun-Lookup",
   "productName": "Tun-Lookup",
-  "version": "0.2.2",
+  "version": "1.0.0",
   "description": "Translation current text selected",
   "main": "main.js",
   "scripts": {
