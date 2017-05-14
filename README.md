@@ -2,12 +2,13 @@
 
 [tun-app.github.io](https://tun-app.github.io) Translation current text selected
 
-<img src="https://gitlab.com/nguyenthephuc/tun-translator/raw/master/screen.png" width="1000" alt="preview"/>
+<img src="https://gitlab.com/nguyenthephuc/tun-translator/raw/master/screen.png" width="800" alt="preview"/>
 
 ### Keyboard shortcuts
 
 Window + Linux: `Ctrl+C Ctrl+Q`
-Window + Linux: `Command+C Command+D`
+
+Mac OS: `Command+C Command+D`
 
 ## Download
 
