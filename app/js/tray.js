@@ -6,18 +6,15 @@ let tray = null
 
 exports.create = win => {
     if (process.platform === 'darwin' || tray) return;
-
-    const iconPath = path.join(__dirname, 'static/tray.png')
-
+    const iconPath = path.join(__dirname, '../static/tray.png')
     const toggleWin = () => {
         if (win.isVisible())
             win.hide()
         else
             win.show()
     }
-
     const contextMenu = electron.Menu.buildFromTemplate([{
-            label: 'Toggle',
+            label: 'Open Tun-Lookup',
             click() {
                 toggleWin()
             }

@@ -1,31 +1,24 @@
-# DevDocs App
+# Tun Lookup application
 
-[DevDocs.io](https://devdocs.io/) combines multiple API documentations in a fast, organized, and searchable interface. This is an unoffcial desktop app for it.
+[tun-app.github.io](https://tun-app.github.io) Translation current text selected
 
-<img src="https://cloud.githubusercontent.com/assets/8784712/23579418/c719cd54-0127-11e7-8d08-55627e696947.png" width="1000" alt="preview"/>
-
-## Features
-
-### Background behavior
-
-When closing the window, the app will continue running in the background, in the dock on macOS and the tray on Linux/Windows. Right-click the dock/tray icon and choose Quit to completely quit the app. On macOS, click the dock icon to show the window. On Linux, right-click the tray icon and choose Toggle to toggle the window. On Windows, click the tray icon to toggle the window.
+<img src="https://gitlab.com/nguyenthephuc/tun-translator/raw/master/screen.png" width="1000" alt="preview"/>
 
 ### Keyboard shortcuts
 
-`devdocs` the website itself has great built-in shortcuts support, just check the `help` page in the app.
+Window + Linux: `Ctrl+C Ctrl+Q`
+Window + Linux: `Command+C Command+D`
 
 ## Download
 
-You can manually download the latest release [here](https://github.com/egoist/devdocs-app/releases).
+You can manually download the latest release [here](https://github.com/tun-app/tun-lookup/releases/).
 
 ## Development
-
-It's really easy to develop this app, no build tools like Webpack needed here, checkout [./app](/app) to get more:
 
 ```bash
 $ npm install
 
-$ npm run app
+$ npm start
 # edit files, save, refresh and it's done.
 ```
 
@@ -39,4 +32,4 @@ $ npm run dist:win
 
 ## License
 
-MIT &copy; [EGOIST](https://github.com/egoist)
+MIT &copy; [ThePhuc](https://gitlab.com/nguyenthephuc)

@@ -2,31 +2,92 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="style.css">
-        <!-- Latest compiled and minified CSS & JS -->
-        <link href="http://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.1/angular.min.js"></script>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="./css/photon.css">
+        <link rel="stylesheet" href="./css/pure-drawer.css">
+        <link rel="stylesheet" href="./css/ngDialog.min.css">
+        <link rel="stylesheet" href="./css/ngDialog-theme-default.min.css">
+        <script type="text/javascript" src="./js/libs/angular.min.js"></script>
+        <script type="text/javascript" src="./js/libs/angular-resource.min.js"></script>
+        <script type="text/javascript" src="./js/libs/ngDialog.min.js"></script>
     </head>
     <body ng-app="app" ng-controller="indexController" ng-cloak>
-        <div class="container">
-            <div class="row">
-                <select name="hello" class="form-control">
-                    <option value="">English</option>
-                    <option value="">Vietnam</option>
-                </select>
+        <div class="pure-container" data-effect="pure-effect-slide">
+            <input type="checkbox" id="pure-toggle-right" class="pure-toggle" data-toggle="right"/>
+            <nav class="pure-drawer" data-position="right">
+                <div class="row collapse">
+                    <div class="large-12 columns">
+                        <ul class="nav-primary">
+                            <li ng-click="openBrowser('https://tun-app.github.io')"><label for="pure-toggle-right" data-toggle-label="right">VISIT HOME PAGE</label></li>
+                            <li ng-click="openBrowser('https://github.com/tun-app/tun-lookup/releases/')"><label for="pure-toggle-right" data-toggle-label="right">CHECK LATEST VERSION</label></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pure-pusher-container">
+                <div class="pure-pusher">
+                    <p style="width: 300px; margin: 100px auto;">
+                        <div class="window">
+                            <div class="window-content">
+                                <div class="pane-group">
+                                    <div class="pane-sm sidebar">
+                                        <ul class="list-group">
+                                            <li class="list-group-header">
+                                                <input class="form-control" type="text" ng-model="keyword" placeholder="Search your dictionary">
+                                            </li>
+                                            <li class="list-group-item" ng-repeat="item in dictionary | filter:keyword track by $index" ng-click="selectText(item.id)" ng-class="{active:active == item.id}">
+                                                <div class="media-body">
+                                                    <strong><span ng-click="delete(item.id)" title="delete" class="icon icon-trash"></span> {{item.text}}</strong>
+                                                    <p ng-repeat="re in item.result">{{re}}</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="pane">
+                                        <form>
+                                            <select class="form-control" ng-model="option.from">
+                                                <option ng-repeat="item in language" value="{{::item.code}}">{{::item.country}}</option>
+                                            </select>
+                                            <div class="padded-more">
+                                                <span ng-if="selection.trim()" class="icon icon-sound" ng-click="speak(option.from, selection)"></span>
+                                                <p>{{selection}}</p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="pane">
+                                        <form>
+                                            <select class="form-control" ng-model="option.to">
+                                                <option ng-repeat="item in language" value="{{::item.code}}">{{::item.country}}</option>
+                                            </select>
+                                            <div class="padded-more">
+                                                <span ng-if="result.length" class="icon icon-sound" ng-click="speak(option.to, result[0])"></span>
+                                                <p ng-repeat="item in result">{{item}}</p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <footer class="toolbar toolbar-footer">
+                                <div class="toolbar-actions">
+                                    <button class="btn btn-default" ng-click="hideWindow()">Cancel</button>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default" ng-click="fullScreen()"><span ng-class="{'icon-resize-small':is_maximize, 'icon-resize-full':!is_maximize}" class="icon"></span></button>
+                                        <label class="btn btn-default" for="pure-toggle-right" data-toggle-label="right"><span class="icon icon-dot-3"></span></label>
+                                    </div>
+                                    <button class="btn btn-primary pull-right" ng-click="saveText()">Save</button>
+                                </div>
+                            </footer>
+                        </div>
+                    </p>
+                </div>
             </div>
 
-            <div class="row">
-                {{selection}}
-            </div>
-            <hr>
-            <div class="row">
-                <small>Tieng viet:</small>
-                {{selection}}
-            </div>
+            <label class="pure-overlay" for="pure-toggle-right" data-overlay="right"></label>
         </div>
+
+
+        <audio src="" hidden></audio>
     </body>
-    <footer>© Copyright 2017 - tun.io</footer>
-    <script>require('./renderer.js')</script>
+    <script>require('./js/renderer.js')</script>
 </html>

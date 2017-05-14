@@ -1,18 +1,40 @@
 const path     = require('path')
 const fs       = require('fs')
 const electron = require('electron')
-const appMenu  = require('./menu')
-const config   = require('./config')
-const tray     = require('./tray')
+const appMenu  = require('./js/menu')
+const config   = require('./js/config')
+const tray     = require('./js/tray')
 const url      = require('url')
 const app      = electron.app
 const {clipboard, globalShortcut} = require('electron')
+const AutoLaunch = require('auto-launch')
+
+var tunLookup = new AutoLaunch({
+    name: 'Tun-Lookup',
+    path: app.getAppPath(),
+});
+
+tunLookup.enable();
+
+tunLookup.isEnabled()
+.then(function(isEnabled){
+    if(isEnabled) return;
+    tunLookup.enable();
+})
+.catch(function(err){});
 
 require('electron-debug')()
 require('electron-context-menu')()
 
 let mainWindow
 let isQuitting = false
+
+let shortcut = ''
+let os = process.platform
+if(os.includes('win') || os.includes('linux') || os.includes('ubuntu'))
+    shortcut = 'Control+Q'
+else if(os.includes('mac') || os.includes('osx') || os.includes('darwin'))
+    shortcut = 'Command+D'
 
 const isAlreadyRunning = app.makeSingleInstance(() => {
     if (mainWindow) {
@@ -27,23 +49,21 @@ if (isAlreadyRunning) app.quit()
 function createMainWindow() {
     const lastWindowState = config.get('lastWindowState')
     const win = new electron.BrowserWindow({
-        frame:false,
-        resizable: false,
+        icon: path.join(__dirname, '../build/icon.ico'),
+        // frame:false,
         // transparent: true,
+        // 'skip-taskbar': true,
         toolbar: false,
-        'skip-taskbar': true,
         title: app.getName(),
         show: false,
-        width: 300,
-        height: 200,
-
-        maxWidth: 300,
-        maxHeight: 200,
-
-        minWidth: 300,
-        minHeight: 200,
+        width: 700,
+        height: 400,
+        minWidth: 700,
+        minHeight: 400,
+        radii: [5,5,5,5],
     })
     win.setAlwaysOnTop(true, 'modal-panel')
+    win.setMenu(null)
 
     win.on('blur', () => {
         win.hide()
@@ -74,15 +94,13 @@ function createMainWindow() {
         e.preventDefault()
     })
 
-    globalShortcut.register('CommandOrControl+D', () => {
+    globalShortcut.register(shortcut, () => {
         let text = clipboard.readText('selection')
-        clipboard.writeText('', 'selection') // reset copy
-        if(text) {
-            let coordinates = electron.screen.getCursorScreenPoint()
-            win.setPosition(coordinates.x, coordinates.y)
-            win.webContents.send('selection', text)
-            win.show()
-        }
+        // clipboard.writeText('', 'selection')
+        // let coordinates = electron.screen.getCursorScreenPoint()
+        // win.setPosition(coordinates.x, coordinates.y)
+        win.webContents.send('selection', text)
+        win.show()
     })
     return win
 }
@@ -100,7 +118,7 @@ app.on('activate', () => {
 })
 
 app.on('before-quit', () => {
-    globalShortcut.unregister('CommandOrControl+D')
+    globalShortcut.unregister(shortcut)
     globalShortcut.unregisterAll()
     isQuitting = true
     if (!mainWindow.isFullScreen())

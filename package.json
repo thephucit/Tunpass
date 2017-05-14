@@ -1,10 +1,9 @@
 {
-    "name": "tun-translator",
+    "name": "Tun-Lookup",
     "version": "1.0.0",
     "description": "",
     "main": "app/main.js",
     "license": "MIT",
-    "repository": "https://github.com/egoist/devdocs-app.git",
     "scripts": {
         "postinstall": "install-app-deps",
         "test": "npm run lint",
@@ -29,8 +28,8 @@
         "esnext": true
     },
     "build": {
-        "appId": "com.thephuc.tun-translator",
-        "productName": "Tun-translator",
+        "appId": "com.thephuc.Tun-Lookup",
+        "productName": "Tun-Lookup",
         "asar": true,
         "dmg": {
             "background": "build/background@2x.png",
