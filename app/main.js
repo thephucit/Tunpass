@@ -33,7 +33,7 @@ let shortcut = ''
 let os = process.platform
 if(os.includes('win') || os.includes('linux') || os.includes('ubuntu'))
     shortcut = 'Control+Q'
-else if(os.includes('mac') || os.includes('osx') || os.includes('darwin'))
+if(os.includes('darwin'))
     shortcut = 'Command+D'
 
 const isAlreadyRunning = app.makeSingleInstance(() => {
