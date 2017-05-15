@@ -14,7 +14,7 @@ exports.create = win => {
             win.show()
     }
     const contextMenu = electron.Menu.buildFromTemplate([{
-            label: 'Open Tun-Lookup',
+            label: 'Open Tunlookup',
             click() {
                 toggleWin()
             }

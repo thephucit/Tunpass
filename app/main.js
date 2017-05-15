@@ -10,8 +10,8 @@ const {clipboard, globalShortcut} = require('electron')
 const AutoLaunch = require('auto-launch')
 
 var tunLookup = new AutoLaunch({
-    name: 'Tun-Lookup',
-    path: app.getAppPath(),
+    name: 'Tunlookup',
+    path: path.join(app.getAppPath(), app.getName()),
 });
 
 tunLookup.enable();
@@ -47,7 +47,6 @@ const isAlreadyRunning = app.makeSingleInstance(() => {
 if (isAlreadyRunning) app.quit()
 
 function createMainWindow() {
-    const lastWindowState = config.get('lastWindowState')
     const win = new electron.BrowserWindow({
         icon: path.join(__dirname, '../build/icon.ico'),
         // frame:false,
@@ -106,11 +105,9 @@ function createMainWindow() {
 }
 
 app.on('ready', () => {
-
     electron.Menu.setApplicationMenu(appMenu)
     mainWindow = createMainWindow()
     tray.create(mainWindow)
-
 })
 
 app.on('activate', () => {
@@ -121,6 +118,4 @@ app.on('before-quit', () => {
     globalShortcut.unregister(shortcut)
     globalShortcut.unregisterAll()
     isQuitting = true
-    if (!mainWindow.isFullScreen())
-        config.set('lastWindowState', mainWindow.getBounds())
 })

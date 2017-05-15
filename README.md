@@ -1,4 +1,4 @@
-# Tun Lookup application
+# Tunlookup application
 
 [tun-app.github.io](https://tun-app.github.io) Translation current text selected
 

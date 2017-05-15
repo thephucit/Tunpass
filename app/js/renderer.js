@@ -74,18 +74,14 @@ app.controller('indexController', function ($scope, $http, Modal, Detect, Transl
     const electron = require('electron');
     const remote   = electron.remote;
     const screenElectron = electron.screen;
-    const file_option = path.join(__dirname, '../source/options.json');
+    const file_config = path.join(__dirname, 'config.js');
     const file_langua = path.join(__dirname, '../source/language.json');
-    const file_dictio = path.join(__dirname, '../source/dictionary.json');
     const lang_defaul = 'en';
 
+    let config        = require(file_config);
+    $scope.option     = config.get('option');
+    $scope.dictionary = config.get('dictionary');
     $scope.language   = require(file_langua);
-
-    try { $scope.option = require(file_option) }
-    catch (e) { $scope.option = {"from":"en","to":"vi"} }
-
-    try { $scope.dictionary = require(file_dictio) }
-    catch (e) { $scope.dictionary = [] }
 
     require('electron').ipcRenderer.on('selection', (event, message) => {
         $scope.selection = message;
@@ -113,7 +109,7 @@ app.controller('indexController', function ($scope, $http, Modal, Detect, Transl
     }, true);
 
     $scope.$watch('option', function(newValue, oldValue, scope) {
-        fs.writeFile(file_option, JSON.stringify($scope.option), function (err) {});
+        config.set('option', $scope.option);
         if(checkSelectionAvailable())
             $scope.translation();
     }, true);
@@ -145,7 +141,7 @@ app.controller('indexController', function ($scope, $http, Modal, Detect, Transl
                 to:$scope.option.to
             };
             $scope.dictionary.unshift(temp);
-            fs.writeFile(file_dictio, JSON.stringify($scope.dictionary), function (err) {});
+            config.set('dictionary', $scope.dictionary);
         }
     };
 
@@ -202,7 +198,7 @@ app.controller('indexController', function ($scope, $http, Modal, Detect, Transl
             if(value.id === id)
                 $scope.dictionary.splice(key, 1);
         });
-        fs.writeFile(file_dictio, JSON.stringify($scope.dictionary), function (err) {});
+        config.set('dictionary', $scope.dictionary);
         reset();
     };
 

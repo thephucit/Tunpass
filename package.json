@@ -1,5 +1,5 @@
 {
-    "name": "Tun-Lookup",
+    "name": "Tunlookup",
     "version": "1.0.0",
     "description": "",
     "main": "app/main.js",
@@ -28,8 +28,8 @@
         "esnext": true
     },
     "build": {
-        "appId": "com.thephuc.Tun-Lookup",
-        "productName": "Tun-Lookup",
+        "appId": "com.thephuc.Tunlookup",
+        "productName": "Tunlookup",
         "asar": true,
         "dmg": {
             "background": "build/background@2x.png",

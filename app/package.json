@@ -1,6 +1,6 @@
 {
-  "name": "Tun-Lookup",
-  "productName": "Tun-Lookup",
+  "name": "Tunlookup",
+  "productName": "Tunlookup",
   "version": "1.0.0",
   "description": "Translation current text selected",
   "main": "main.js",
