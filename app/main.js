@@ -9,9 +9,31 @@ const app      = electron.app
 const {clipboard, globalShortcut} = require('electron')
 const AutoLaunch = require('auto-launch')
 
+require('electron-debug')()
+require('electron-context-menu')()
+
+let mainWindow
+let isQuitting = false
+
+let shortcut = ''
+let app_path = ''
+let os = process.platform
+if(os.includes('win')) {
+    shortcut = 'Control+Q'
+    app_path = path.join(app.getAppPath(), app.getName()) + '.exe'
+}
+if(os.includes('linux') || os.includes('ubuntu')) {
+    shortcut = 'Control+Q'
+    app_path = path.join(app.getAppPath(), app.getName()) + '.deb'
+}
+if(os.includes('darwin')) {
+    shortcut = 'Command+D'
+    app_path = '/Applications/Tunlookup.app'
+}
+
 var tunLookup = new AutoLaunch({
     name: 'Tunlookup',
-    path: path.join(app.getAppPath(), app.getName()),
+    path: app_path,
 });
 
 tunLookup.enable();
@@ -22,19 +44,6 @@ tunLookup.isEnabled()
     tunLookup.enable();
 })
 .catch(function(err){});
-
-require('electron-debug')()
-require('electron-context-menu')()
-
-let mainWindow
-let isQuitting = false
-
-let shortcut = ''
-let os = process.platform
-if(os.includes('win') || os.includes('linux') || os.includes('ubuntu'))
-    shortcut = 'Control+Q'
-if(os.includes('darwin'))
-    shortcut = 'Command+D'
 
 const isAlreadyRunning = app.makeSingleInstance(() => {
     if (mainWindow) {
@@ -60,6 +69,9 @@ function createMainWindow() {
         minWidth: 700,
         minHeight: 400,
         radii: [5,5,5,5],
+        webPreferences: {
+            devTools: false
+        }
     })
     win.setAlwaysOnTop(true, 'modal-panel')
     win.setMenu(null)
