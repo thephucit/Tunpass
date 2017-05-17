@@ -20,11 +20,11 @@ let app_path = ''
 let os = process.platform
 if(os.includes('win')) {
     shortcut = 'Control+Q'
-    app_path = path.join(app.getAppPath(), app.getName()) + '.exe'
+    app_path = path.join(app.getAppPath().replace('\\resources\\app.asar', ''), app.getName()) + '.exe'
 }
 if(os.includes('linux') || os.includes('ubuntu')) {
     shortcut = 'Control+Q'
-    app_path = path.join(app.getAppPath(), app.getName()) + '.deb'
+    app_path = path.join(app.getAppPath().replace('\\resources\\app.asar', ''), app.getName()) + '.deb'
 }
 if(os.includes('darwin')) {
     shortcut = 'Command+D'
