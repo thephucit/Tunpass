@@ -48,17 +48,9 @@ app.service('Modal', function ($rootScope, ngDialog, $timeout) {
     };
 });
 
-app.factory('Detect', function ($resource) {
-    return $resource('https://translate.yandex.net/api/v1/tr.json/detect?sid=aaf1e491.5916a625.cfa72835&srv=tr-text&text=:text', {text:'@text'}, {
-        language: {
-            method: 'GET',
-            cache: false,
-        },
-    });
-});
-
 app.factory('Translator', function ($resource) {
-    return $resource('https://translate.yandex.net/api/v1/tr.json/translate?id=8cdf2f85.59169415.a589bf19-1-0&srv=tr-text&lang=:lang&text=:text', {lang:'@lang', text:'@text'}, {
+    return $resource('https://translate.googleapis.com/translate_a/single?client=gtx&sl=:from&tl=:to&dt=t&dt=bd&dj=1&q=:text', {from:'@from', to:'@to', text:'@text'}, {
+    // return $resource('https://translate.yandex.net/api/v1/tr.json/translate?id=8cdf2f85.59169415.a589bf19-1-0&srv=tr-text&lang=:lang&text=:text', {lang:'@lang', text:'@text'}, {
         language: {
             method: 'GET',
             cache: false,
@@ -66,7 +58,7 @@ app.factory('Translator', function ($resource) {
     });
 });
 
-app.controller('indexController', function ($scope, $http, Modal, Detect, Translator) {
+app.controller('indexController', function ($scope, $http, Modal, Translator) {
 
     const fs       = require('fs');
     const path     = require('path');
@@ -98,13 +90,8 @@ app.controller('indexController', function ($scope, $http, Modal, Detect, Transl
 
     $scope.$watch('selection', function(newValue, oldValue, scope) {
         if(checkSelectionAvailable() && !$scope.choose_text) {
-            Modal.process(Detect.language({text:$scope.selection}), function(res) {
-                if(res.code === 200 && res.lang)
-                    $scope.option.from = res.lang;
-                else
-                    $scope.option.from = lang_defaul;
-                $scope.translation();
-            });
+            $scope.option.from = 'auto';
+            $scope.translation();
         }
     }, true);
 
@@ -115,12 +102,18 @@ app.controller('indexController', function ($scope, $http, Modal, Detect, Transl
     }, true);
 
     $scope.translation = function() {
-        let lang = $scope.option.from + '-' + $scope.option.to;
-        $scope.result = ['translating...'];
-        Translator.language({lang:lang, text:$scope.selection}, function(res) {
-            if(res.code === 200)
-                $scope.result = res.text;
+        $scope.is_translating = true;
+        Translator.language({from:$scope.option.from, to:$scope.option.to, text:$scope.selection}, function(res) {
+            $scope.option.from = res.src;
+            $scope.result = res;
+            $scope.is_translating = false;
         });
+    };
+
+    $scope.lookupOther = function(ele) {
+        if(ele.keyCode === 13)
+            if($scope.search)
+                $scope.selection = $scope.search;
     };
 
     $scope.saveText = function() {
@@ -157,6 +150,15 @@ app.controller('indexController', function ($scope, $http, Modal, Detect, Transl
                 return;
             }
         });
+    };
+
+    $scope.renderDict = function(dict) {
+        console.log(dict);
+        let result = '';
+        angular.forEach(dict, function(value, key){
+            result += '- ' + value + '\n';
+        });
+        return result;
     };
 
     $scope.speak = function(lang, text) {
