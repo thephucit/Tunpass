@@ -153,7 +153,6 @@ app.controller('indexController', function ($scope, $http, Modal, Translator) {
     };
 
     $scope.renderDict = function(dict) {
-        console.log(dict);
         let result = '';
         angular.forEach(dict, function(value, key){
             result += '- ' + value + '\n';
