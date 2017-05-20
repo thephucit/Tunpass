@@ -111,6 +111,8 @@ app.controller('indexController', function ($scope, $http, Modal, Translator) {
     };
 
     $scope.lookupOther = function(ele) {
+        reset();
+        $scope.choose_text = false;
         if(ele.keyCode === 13)
             if($scope.search)
                 $scope.selection = $scope.search;

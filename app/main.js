@@ -70,7 +70,7 @@ function createMainWindow() {
         minHeight: 400,
         radii: [5,5,5,5],
         webPreferences: {
-            devTools: false
+            // devTools: false
         }
     })
     win.setAlwaysOnTop(true, 'modal-panel')
