@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="stylesheet" href="./css/photon.css">
+        <link rel="stylesheet" href="./css/pure-drawer.css">
+        <link rel="stylesheet" href="./css/ngDialog.min.css">
+        <link rel="stylesheet" href="./css/ngDialog-theme-default.min.css">
+        <script type="text/javascript" src="./js/libs/angular.min.js"></script>
+        <script type="text/javascript" src="./js/libs/angular-resource.min.js"></script>
+        <script type="text/javascript" src="./js/libs/ngDialog.min.js"></script>
+    </head>
+    <body ng-app="app" ng-controller="indexController" ng-cloak>
+        <div class="pure-container" data-effect="pure-effect-slide">
+            <input type="checkbox" id="pure-toggle-right" class="pure-toggle" data-toggle="right"/>
+            <nav class="pure-drawer" data-position="right">
+                <div class="row collapse">
+                    <div class="large-12 columns">
+                        <ul class="nav-primary">
+                            <li ng-click="openBrowser('https://tun-application.github.io/')"><label for="pure-toggle-right" data-toggle-label="right">VISIT HOME PAGE</label></li>
+                            <li ng-click="openBrowser('https://github.com/tun-application/Tunlookup/releases')"><label for="pure-toggle-right" data-toggle-label="right">CHECK LATEST VERSION</label></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pure-pusher-container">
+                <div class="pure-pusher">
+                    <p style="width: 300px; margin: 100px auto;">
+                        <div class="window">
+                            <div class="window-content">
+                                <div class="pane-group">
+                                    <div class="pane-sm sidebar">
+                                        <ul class="list-group">
+                                            <li class="list-group-header">
+                                                <input class="form-control" type="text" ng-model="keyword" placeholder="Search your dictionary">
+                                            </li>
+                                            <li class="list-group-item" ng-repeat="item in dictionary | filter:keyword track by $index" ng-click="selectText(item.id)" ng-class="{active:active == item.id}">
+                                                <div class="media-body">
+                                                    <strong><span ng-click="delete(item.id)" title="delete" class="icon icon-trash"></span> {{item.text}}</strong>
+                                                    <p ng-repeat="re in item.result">{{re}}</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="pane">
+                                        <form>
+                                            <select class="form-control" ng-model="option.from">
+                                                <option ng-repeat="item in language" value="{{::item.code}}">{{::item.country}}</option>
+                                            </select>
+                                            <div class="padded-more">
+                                                <span ng-if="selection.trim()" class="icon icon-sound" ng-click="speak(option.from, selection)"></span>
+                                                <p>{{selection}}</p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="pane">
+                                        <form>
+                                            <select class="form-control" ng-model="option.to">
+                                                <option ng-repeat="item in language" value="{{::item.code}}">{{::item.country}}</option>
+                                            </select>
+                                            <div class="padded-more">
+                                                <span ng-if="result.length" class="icon icon-sound" ng-click="speak(option.to, result[0])"></span>
+                                                <p ng-repeat="item in result">{{item}}</p>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <footer class="toolbar toolbar-footer">
+                                <div class="toolbar-actions">
+                                    <button class="btn btn-default" ng-click="hideWindow()">Cancel</button>
+                                    <div class="btn-group">
+                                        <button class="btn btn-default" ng-click="fullScreen()"><span ng-class="{'icon-resize-small':is_maximize, 'icon-resize-full':!is_maximize}" class="icon"></span></button>
+                                        <label class="btn btn-default" for="pure-toggle-right" data-toggle-label="right"><span class="icon icon-dot-3"></span></label>
+                                    </div>
+                                    <button class="btn btn-primary pull-right" ng-click="saveText()">Save</button>
+                                </div>
+                            </footer>
+                        </div>
+                    </p>
+                </div>
+            </div>
+
+            <label class="pure-overlay" for="pure-toggle-right" data-overlay="right"></label>
+        </div>
+
+
+        <audio src="" hidden></audio>
+    </body>
+    <script>require('./js/renderer.js')</script>
+</html>
