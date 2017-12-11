@@ -53,6 +53,7 @@ app.directive("directive", function() {
 
 app.controller('indexController', function ($scope, $http) {
     const fs             = require('fs');
+    const url            = require('url');
     const path           = require('path');
     const shell          = require('electron').shell;
     const electron       = require('electron');
@@ -229,11 +230,15 @@ app.controller('indexController', function ($scope, $http) {
             radii: [5,5,5,5],
             webPreferences: { devTools: false }
         });
-        win.on('close', function () { win = null });
-        win.loadURL(modalPath);
-        win.setAlwaysOnTop(true, 'modal-panel');
+        win.loadURL(url.format({
+            pathname: path.join(__dirname, 'second.html'),
+            protocol: 'file:',
+            slashes: true
+        }))
         win.setMenu(null);
+        win.setAlwaysOnTop(true, 'modal-panel');
         win.on('blur', () => win.hide() );
+        win.on('close', function () { win = null });
         win.show();
     };
 
