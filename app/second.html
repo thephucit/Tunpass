@@ -5,11 +5,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="stylesheet" href="./css/photon.css">
         <link rel="stylesheet" href="./css/pure-drawer.css">
-        <link rel="stylesheet" href="./css/ngDialog.min.css">
-        <link rel="stylesheet" href="./css/ngDialog-theme-default.min.css">
-        <script type="text/javascript" src="./js/libs/angular.min.js"></script>
-        <script type="text/javascript" src="./js/libs/angular-resource.min.js"></script>
-        <script type="text/javascript" src="./js/libs/ngDialog.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+        <script src="./js/handle.js"></script>
     </head>
     <body ng-app="app" ng-controller="indexController" ng-cloak>
         <div class="pure-container" data-effect="pure-effect-slide">
@@ -36,7 +33,7 @@
                                             <li class="list-group-header">
                                                 <input class="form-control" type="text" ng-model="keyword" placeholder="Search your dictionary">
                                             </li>
-                                            <li class="list-group-item" ng-repeat="item in dictionary | filter:keyword track by $index" ng-click="selectText(item.id)" ng-class="{active:active == item.id}">
+                                            <li class="list-group-item" ng-repeat="item in dictionary | filter:keyword track by $index" ng-click="selectWord(item.id)" ng-class="{active:active == item.id}">
                                                 <div class="media-body">
                                                     <strong><span ng-click="delete(item.id)" title="delete" class="icon icon-trash"></span> {{item.text}}</strong>
                                                 </div>
@@ -80,7 +77,7 @@
                                         <label class="btn btn-default" for="pure-toggle-right" data-toggle-label="right"><span class="icon icon-dot-3"></span></label>
                                     </div>
                                     <input autofocus type="text" ng-model="search" class="btn btn-default" placeholder="Input your text..." ng-keypress="lookupOther($event)">
-                                    <button class="btn btn-primary pull-right" ng-click="saveText()">Save</button>
+                                    <button class="btn btn-primary pull-right" ng-click="saveWord()">Save</button>
                                 </div>
                             </footer>
                         </div>
@@ -90,9 +87,6 @@
 
             <label class="pure-overlay" for="pure-toggle-right" data-overlay="right"></label>
         </div>
-
-
-        <audio src="" hidden></audio>
     </body>
-    <script>require('./js/renderer.js')</script>
+    <div class="loading" ng-if="is_show_loading"><div class="gif"></div></div>
 </html>

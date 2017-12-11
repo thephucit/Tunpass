@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+        <script src="./js/handle.js"></script>
+        <style type="text/css" media="all">
+            [ng\:cloak],
+            [ng-cloak],
+            [data-ng-cloak],
+            [x-ng-cloak],
+            .ng-cloak,
+            .x-ng-cloak {
+                display: none !important;
+            }
+            body {
+                overflow: hidden;
+                padding: 0;
+                margin: 0;
+                font: 1em/1.4 Cambria, Georgia, sans-serif;
+                color: #333;
+            }
+            .speech-bubble {
+                -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+                filter: url(#drop-shadow);
+                -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+                filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+                -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=4, Color='#000')";
+                filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=4, Color='#000')";
+                background-color: #f8f8f8;
+                border: 1px solid #c8c8c8;
+                border-radius: 5px;
+                width: 300px;
+                text-align: left;
+                padding: 20px;
+                position: absolute;
+            }
+            .speech-bubble .arrow {
+                -webkit-app-region: drag;
+                border-style: solid;
+                position: absolute;
+            }
+            .bottom {
+                border-color: #c8c8c8 transparent transparent transparent;
+                border-width: 8px 8px 0px 8px;
+                bottom: -8px;
+            }
+            .bottom:after {
+                border-color: #f8f8f8 transparent transparent transparent;
+                border-style: solid;
+                border-width: 7px 7px 0px 7px;
+                bottom: 1px;
+                content: "";
+                position: absolute;
+                left: -7px;
+            }
+            .icon-menu {
+                color: #f1c40f;
+                cursor: pointer;
+            }
+            td {
+                vertical-align: middle;
+            }
+            .material-icons {
+                font-size: 22px;
+                display: block;
+            }
+            select {
+                background-color: #f8f8f8;
+                border: 1px solid #c8c8c8;
+                font-size: 18px;
+                line-height: 1;
+                top: 0;
+                padding: 2px;
+                width: 130px;
+                margin: 2px;
+                font-size: 14px;
+                display: inline-block;
+            }
+            .save {
+                float: right;
+                cursor: pointer;
+                top: 0;
+            }
+            .saved {
+                color: #f1c40f;
+            }
+            .white-space-pre-line{white-space:pre-line}
+            .speak {
+                float: left;
+                cursor: pointer;
+                padding-right: 5px;
+            }
+            .word-wrap {
+                word-wrap: break-word;
+            }
+        </style>
+    </head>
+    <body ng-app="app" ng-controller="indexController" ng-cloak>
+        <table>
+            <td><i class="material-icons icon-menu" title="open your history" ng-click="openHistory()">save</i></td>
+            <td>
+                <select ng-model="option.from">
+                    <option ng-repeat="item in language" value="{{::item.code}}">{{::item.country}}</option>
+                </select>
+            </td>
+            <td><i class="material-icons icon-menu" ng-click="switchTranslate()">swap_horiz</i></td>
+            <td>
+                <select ng-model="option.to">
+                    <option ng-repeat="item in language" value="{{::item.code}}">{{::item.country}}</option>
+                </select>
+            </td>
+        </table>
+
+        <div class="speech-bubble">
+            <div class="arrow bottom right"></div>
+            <div class="save"
+                    ng-if="selection.trim()"
+                    ng-class="{'saved':checkWordExisted()}"
+                    ng-click="star()"
+                    title="{{checkWordExisted() ? 'click to remove' : 'click to save'}}">
+                <i class="material-icons">{{checkWordExisted() ? 'star' : 'star_border'}}</i>
+            </div><br>
+
+            <!-- SELECTION -->
+            <div class="speak" ng-if="selection.trim()" ng-click="speak(option.from, selection)">
+                <i class="material-icons">{{option.from === 'en' ? 'volume_up' : 'volume_off'}}</i>
+            </div>
+            <div class="word-wrap" contenteditable data-directive ng-model="selection"></div>
+            <!-- /SELECTION -->
+
+            <hr ng-if="selection.trim()">
+
+            <!-- RESULT -->
+            <span ng-if="is_translating" style="-webkit-user-select: none;">translating...</span>
+            <div class="speak" ng-if="selection.trim()" ng-click="speak(option.to, result.sentences[0].trans)">
+                <i class="material-icons">{{option.to === 'en' ? 'volume_up' : 'volume_off'}}</i>
+            </div>
+            <div ng-if="selection.trim()" ng-repeat="item in result.sentences" class="word-wrap">{{item.trans | cut:true:200}}</div>
+            <div ng-if="result.dict.length && selection.trim()">
+                <h4 style="-webkit-user-select: none; -webkit-app-region: drag;">Another translation</h4>
+            </div>
+            <p ng-repeat="item in result.dict" ng-if="selection.trim()">
+                <span class="white-space-pre-line">{{renderDict(item.terms)}}</span>
+            </p>
+            <!-- /RESULT -->
+        </div>
+    </body>
+</html>

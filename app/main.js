@@ -58,35 +58,27 @@ if (isAlreadyRunning) app.quit()
 function createMainWindow() {
     const win = new electron.BrowserWindow({
         icon: path.join(__dirname, '../build/icon.ico'),
-        // frame:false,
-        // transparent: true,
-        // 'skip-taskbar': true,
+        frame: false,
+        transparent: true,
+        skipTaskbar: true,
         toolbar: false,
         title: app.getName(),
         show: false,
-        width: 700,
-        height: 400,
-        minWidth: 700,
-        minHeight: 400,
+        width: 350, height: 'auto',
         radii: [5,5,5,5],
-        webPreferences: {
-            devTools: false
-        }
+        webPreferences: { devTools: true }
     })
     win.setAlwaysOnTop(true, 'modal-panel')
     win.setMenu(null)
+    win.on('blur', () => win.hide() )
 
-    win.on('blur', () => {
-        win.hide()
-    })
-
-    // win.webContents.openDevTools()
+    win.webContents.openDevTools()
 
     if (process.platform === 'darwin')
         win.setSheetOffset(40)
 
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
+        pathname: path.join(__dirname, 'first.html'),
         protocol: 'file:',
         slashes: true
     }))
@@ -117,14 +109,12 @@ function createMainWindow() {
 }
 
 app.on('ready', () => {
-    electron.Menu.setApplicationMenu(appMenu)
+    // electron.Menu.setApplicationMenu(appMenu)
     mainWindow = createMainWindow()
     tray.create(mainWindow)
 })
 
-app.on('activate', () => {
-    mainWindow.hide()
-})
+app.on('activate', () => mainWindow.hide() )
 
 app.on('before-quit', () => {
     globalShortcut.unregister(shortcut)
