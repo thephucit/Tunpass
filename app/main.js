@@ -66,13 +66,13 @@ function createMainWindow() {
         show: false,
         width: 350, height: 'auto',
         radii: [5,5,5,5],
-        webPreferences: { devTools: true }
+        webPreferences: { devTools: false }
     })
     win.setAlwaysOnTop(true, 'modal-panel')
     win.setMenu(null)
     win.on('blur', () => win.hide() )
 
-    win.webContents.openDevTools()
+    //win.webContents.openDevTools()
 
     if (process.platform === 'darwin')
         win.setSheetOffset(40)
