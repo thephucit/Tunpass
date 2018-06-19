@@ -14,19 +14,19 @@ require('electron-context-menu')()
 
 let mainWindow
 let isQuitting = false
+let shortcut   = ''
+let app_path   = ''
+let os         = process.platform
 
-let shortcut = ''
-let app_path = ''
-let os = process.platform
-if(os.includes('win')) {
+if (os.includes('win')) {
     shortcut = 'Control+Q'
     app_path = path.join(app.getAppPath().replace('\\resources\\app.asar', ''), app.getName()) + '.exe'
 }
-if(os.includes('linux') || os.includes('ubuntu')) {
+if (os.includes('linux') || os.includes('ubuntu')) {
     shortcut = 'Control+Q'
     app_path = path.join(app.getAppPath().replace('\\resources\\app.asar', ''), app.getName()) + '.deb'
 }
-if(os.includes('darwin')) {
+if (os.includes('darwin')) {
     shortcut = 'Command+D'
     app_path = '/Applications/Tunlookup.app'
 }
@@ -38,12 +38,10 @@ var tunLookup = new AutoLaunch({
 
 tunLookup.enable();
 
-tunLookup.isEnabled()
-.then(function(isEnabled){
-    if(isEnabled) return;
+tunLookup.isEnabled().then(function(isEnabled) {
+    if (isEnabled) return;
     tunLookup.enable();
-})
-.catch(function(err){});
+}).catch(function(err){});
 
 const isAlreadyRunning = app.makeSingleInstance(() => {
     if (mainWindow) {
@@ -72,7 +70,7 @@ function createMainWindow() {
     win.setMenu(null)
     win.on('blur', () => win.hide() )
 
-    //win.webContents.openDevTools()
+    // win.webContents.openDevTools()
 
     if (process.platform === 'darwin')
         win.setSheetOffset(40)

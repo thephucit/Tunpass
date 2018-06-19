@@ -1,0 +1,21 @@
+OLD
+{
+    "electron": "^1.8.7",
+    "electron-builder": "^15.4.3",
+    "electron-builder-squirrel-windows": "^15.3.0",
+    "electron-devtools-installer": "^2.2.4",
+    "eslint-config-rem": "^3.2.2",
+    "minimist": "^1.2.0",
+    "xo": "^0.17.1"
+}
+
+NEW
+{
+    "devtron": "^1.4.0",
+        "electron": "^1.7.9",
+        "electron-builder": "^19.37.2",
+        "electron-devtools-installer": "^2.2.1",
+        "eslint-config-rem": "^3.2.0",
+        "minimist": "^1.2.0",
+        "xo": "^0.18.2"
+}

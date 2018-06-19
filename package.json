@@ -1,6 +1,6 @@
 {
     "name": "Tunlookup",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Translate selected text with a keystroke",
     "main": "app/main.js",
     "license": "MIT",
@@ -12,16 +12,18 @@
         "dist": "npm run dist:mac && npm run dist:deb && npm run dist:win",
         "dist:mac": "build --mac",
         "dist:linux": "build --linux deb tar.xz",
-        "dist:win": "build --win --ia32"
+        "dist:win": "build --win --ia32",
+        "dist:win64": "build --win --ia64",
+        "release": "build"
     },
     "devDependencies": {
-        "electron": "^1.6.2",
-        "electron-builder": "^15.4.3",
-        "electron-builder-squirrel-windows": "^15.3.0",
-        "electron-devtools-installer": "^2.1.0",
-        "eslint-config-rem": "^3.2.2",
+        "devtron": "^1.4.0",
+        "electron": "^1.7.9",
+        "electron-builder": "^19.37.2",
+        "electron-devtools-installer": "^2.2.1",
+        "eslint-config-rem": "^3.2.0",
         "minimist": "^1.2.0",
-        "xo": "^0.17.1"
+        "xo": "^0.18.2"
     },
     "xo": {
         "extends": "rem",

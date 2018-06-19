@@ -4,8 +4,9 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+        <link href="./css/icon.css" rel="stylesheet">
+        <script src="./js/angular.min.js"></script>
+        <script src="./js/angular-sanitize.js"></script>
         <script src="./js/handle.js"></script>
         <style type="text/css" media="all">
             [ng\:cloak],
@@ -23,13 +24,35 @@
                 font: 1em/1.4 Cambria, Georgia, sans-serif;
                 color: #333;
             }
+            ::selection {
+                background: #FFF5B8;
+                display: block;
+            }
+            ::-moz-selection {
+                background: #FFF5B8;
+                display: block;
+            }
+            ::-webkit-scrollbar-track {
+                background-color: #eeeeee;
+            }
+            ::-webkit-scrollbar {
+                width: 1px;
+                background-color: #cccccc;
+            }
+            ::-webkit-scrollbar-thumb {
+                background-color: #cccccc;
+                border: none;
+            }
             .speech-bubble {
-                -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+                -webkit-box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+                  -moz-box-shadow: rgba(0,0,0,0.3) 0 1px 3px;
+                  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 3px;
+                /*-webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
                 filter: url(#drop-shadow);
                 -webkit-filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
                 filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
                 -ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=4, Color='#000')";
-                filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=4, Color='#000')";
+                filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=2, OffY=4, Color='#000')";*/
                 background-color: #f8f8f8;
                 border: 1px solid #c8c8c8;
                 border-radius: 5px;
@@ -96,6 +119,15 @@
             }
             .word-wrap {
                 word-wrap: break-word;
+                overflow-y: auto;
+                overflow-x: hidden;
+                max-height: 150px;
+            }
+            .result {
+                word-wrap: break-word;
+                overflow-y: auto;
+                overflow-x: hidden;
+                max-height: 250px;
             }
         </style>
     </head>
@@ -135,17 +167,19 @@
             <hr ng-if="selection.trim()">
 
             <!-- RESULT -->
-            <span ng-if="is_translating" style="-webkit-user-select: none;">translating...</span>
-            <div class="speak" ng-if="selection.trim()" ng-click="speak(option.to, result.sentences[0].trans)">
-                <i class="material-icons">{{option.to === 'en' ? 'volume_up' : 'volume_off'}}</i>
+            <div class="result">
+                <span ng-if="is_translating" style="-webkit-user-select: none;">translating...</span>
+                <div class="speak" ng-if="selection.trim()" ng-click="speak(option.to, result.sentences[0].trans)">
+                    <i class="material-icons">{{option.to === 'en' ? 'volume_up' : 'volume_off'}}</i>
+                </div>
+                <div ng-if="selection.trim()" ng-repeat="item in result.sentences" class="word-wrap">{{item.trans}}</div>
+                <div ng-if="result.dict.length && selection.trim()">
+                    <h4 style="-webkit-user-select: none; -webkit-app-region: drag;">Another translation</h4>
+                </div>
+                <p ng-repeat="item in result.dict" ng-show="selection.trim()">
+                    <span ng-bind-html="renderDict(item.terms)"></span>
+                </p>
             </div>
-            <div ng-if="selection.trim()" ng-repeat="item in result.sentences" class="word-wrap">{{item.trans | cut:true:200}}</div>
-            <div ng-if="result.dict.length && selection.trim()">
-                <h4 style="-webkit-user-select: none; -webkit-app-region: drag;">Another translation</h4>
-            </div>
-            <p ng-repeat="item in result.dict" ng-if="selection.trim()">
-                <span class="white-space-pre-line">{{renderDict(item.terms)}}</span>
-            </p>
             <!-- /RESULT -->
         </div>
     </body>

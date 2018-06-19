@@ -1,6 +1,6 @@
 'use strict';
 
-let app = angular.module('app', []);
+let app = angular.module('app', ['ngSanitize']);
 
 app.config(['$compileProvider', ($compileProvider) => {
     $compileProvider.debugInfoEnabled(false);
@@ -65,17 +65,17 @@ app.controller('indexController', function ($scope, $http) {
     const file_langua    = path.join(__dirname, 'source/language.json');
     const lang_defaul    = 'en';
 
-    let api_speak = 'https://api.ispeech.org/api/rest?apikey=34b06ef0ba220c09a817fe7924575123&action=convert&voice=usenglishfemale&speed=0&pitch=100&text=';
-    let api_trans = (from, to, text) => { return `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${from}&tl=${to}&dt=t&dt=bd&dj=1&q=${text}`; }
-    let config        = require(file_config);
-    $scope.option     = config.get('option');
-    $scope.dictionary = config.get('dictionary');
-    $scope.language   = require(file_langua);
+    let api_speak        = 'https://api.ispeech.org/api/rest?apikey=34b06ef0ba220c09a817fe7924575123&action=convert&voice=usenglishfemale&speed=0&pitch=100&text=';
+    let api_trans        = (from, to, text) => { return 'https://translate.googleapis.com/translate_a/single?client=gtx&ie=UTF-8&sl='+from+'&tl='+to+'&dt=t&dt=bd&dj=1&q='+text; }
+    let config           = require(file_config);
+    $scope.option        = config.get('option');
+    $scope.dictionary    = config.get('dictionary');
+    $scope.language      = require(file_langua);
 
     ipcRenderer.on('selection', (event, message) => {
-        $scope.dictionary = config.get('dictionary');
-        $scope.selection = message;
-        $scope.active = '';
+        $scope.dictionary  = config.get('dictionary');
+        $scope.selection   = message;
+        $scope.active      = '';
         $scope.choose_text = false;
         $scope.$apply();
     })
@@ -98,8 +98,10 @@ app.controller('indexController', function ($scope, $http) {
     }, true);
 
     $scope.translation = function() {
+        $scope.selection      = $scope.selection.replace(/<\/?[^>]+(>|$)/g, "");
+        var selection         = encodeURIComponent(String($scope.selection))
         $scope.is_translating = true;
-        $http.get(api_trans($scope.option.from, $scope.option.to, $scope.selection)).then((res)=>{
+        $http.get(api_trans($scope.option.from, $scope.option.to, selection)).then((res)=>{
             $scope.option.from    = res.data.src;
             $scope.result         = res.data;
             $scope.is_translating = false;
@@ -138,17 +140,17 @@ app.controller('indexController', function ($scope, $http) {
     };
 
     $scope.saveWord = function() {
-        if(!$scope.selection || $scope.result.length <= 0) return;
-        if(!checkSelectionAvailable() || $scope.checkWordExisted()) return;
+        if (!$scope.selection || $scope.result.length <= 0) return;
+        if (!checkSelectionAvailable() || $scope.checkWordExisted()) return;
         save();
     };
 
     $scope.star = () => {
-        if(!$scope.selection || $scope.result.length <= 0) return;
-        if(!checkSelectionAvailable()) return;
-        if(!$scope.checkWordExisted()) save();
+        if (!$scope.selection || $scope.result.length <= 0) return;
+        if (!checkSelectionAvailable()) return;
+        if (!$scope.checkWordExisted()) save();
         else angular.forEach($scope.dictionary, function(value, key) {
-            if(value.text === $scope.selection.toLowerCase()) {
+            if (value.text === $scope.selection.toLowerCase()) {
                 $scope.dictionary.splice(key, 1);
                 config.set('dictionary', $scope.dictionary);
             }
@@ -159,37 +161,37 @@ app.controller('indexController', function ($scope, $http) {
         $scope.choose_text = true;
         $scope.active = id;
         angular.forEach($scope.dictionary, function(value, key){
-            if(value.id === id) {
-                $scope.selection = value.text;
-                $scope.result = value.result;
+            if (value.id === id) {
+                $scope.selection   = value.text;
+                $scope.result      = value.result;
                 $scope.option.from = value.from;
-                $scope.option.to = value.to;
+                $scope.option.to   = value.to;
                 return;
             }
         });
     };
 
     $scope.renderDict = (dict) => {
-        let result = '';
+        let result = '<ul>';
         let count = 0;
-        angular.forEach(dict, function(value, key){
-            if(count <= 5) result += '- ' + value + '\n';
+        angular.forEach(dict, function(value, key) {
+            if (count <= 5) result += '<li>' + value + '</li>';
             count++;
         });
         return result;
     };
 
     $scope.speak = function(lang, text) {
-        if(lang !== 'en' || !text.trim()) return;
-        let utter = new SpeechSynthesisUtterance();
-        utter.text = text;
+        if (lang !== 'en' || !text.trim()) return;
+        let utter   = new SpeechSynthesisUtterance();
+        utter.text  = text;
         utter.onend = function(event) { console.log('Speech complete'); }
         speechSynthesis.speak(utter);
     }
 
     let reset = function() {
-        $scope.result = [];
-        $scope.active = '';
+        $scope.result    = [];
+        $scope.active    = '';
         $scope.selection = '';
     };
 
@@ -201,17 +203,17 @@ app.controller('indexController', function ($scope, $http) {
     $scope.openBrowser = (url) => shell.openExternal(url);
 
     $scope.switchTranslate = () => {
-        let keep = $scope.option.from;
+        let keep           = $scope.option.from;
         $scope.option.from = $scope.option.to;
-        $scope.option.to = keep;
+        $scope.option.to   = keep;
         $scope.translation();
     };
 
     $scope.is_maximize = false;
     $scope.fullScreen = () => {
         let mainScreen = screenElectron.getPrimaryDisplay().size;
-        let win = remote.getCurrentWindow();
-        if(!$scope.is_maximize) {
+        let win        = remote.getCurrentWindow();
+        if (!$scope.is_maximize) {
             win.maximize(true);
             $scope.is_maximize = true;
         } else {
@@ -244,7 +246,7 @@ app.controller('indexController', function ($scope, $http) {
 
     $scope.delete = function(id) {
         angular.forEach($scope.dictionary, function(value, key) {
-            if(value.id === id) {
+            if (value.id === id) {
                 $scope.dictionary.splice(key, 1);
                 config.set('dictionary', $scope.dictionary);
                 reset();
@@ -254,10 +256,10 @@ app.controller('indexController', function ($scope, $http) {
 
     window.onkeydown = (event) => {
         let keyCode = event.which || event.keyCode;
-        if(keyCode === 87) $scope.switchTranslate();
-        if(keyCode !== 27) return;
-        $scope.result = [];
-        $scope.active = '';
+        if (keyCode === 87) $scope.switchTranslate();
+        if (keyCode !== 27) return;
+        $scope.result    = [];
+        $scope.active    = '';
         $scope.selection = '';
         $scope.$apply();
         window.close();
