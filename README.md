@@ -1,6 +1,6 @@
 # Tunpass application
 
-[tun-app.github.io](https://tun-app.github.io) Easy password management with Tunpass
+Easy password management with Tunpass
 
 <img src="https://github.com/thephucit/Tunpass/raw/master/screen.png" width="800" alt="preview"/>
 <img src="https://github.com/thephucit/Tunpass/raw/master/screen2.png" width="800" alt="preview"/>
