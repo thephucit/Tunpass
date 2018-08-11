@@ -1,18 +1,12 @@
-# Tunlookup application
+# Tunpass application
 
-[tun-app.github.io](https://tun-app.github.io) Translation current text selected
+[tun-app.github.io](https://tun-app.github.io) Easy password management with Tunpass
 
-<img src="https://gitlab.com/nguyenthephuc/tun-translator/raw/master/screen.png" width="800" alt="preview"/>
-
-### Keyboard shortcuts
-
-Window + Linux: `Ctrl+C Ctrl+Q`
-
-Mac OS: `Command+C Command+D`
-
-## Download
-
-You can manually download the latest release [here](https://github.com/tun-app/tun-lookup/releases/).
+<img src="https://github.com/thephucit/Tunpass/raw/master/screen.png" width="800" alt="preview"/>
+<img src="https://github.com/thephucit/Tunpass/raw/master/screen2.png" width="800" alt="preview"/>
+<img src="https://github.com/thephucit/Tunpass/raw/master/screen3.png" width="800" alt="preview"/>
+<img src="https://github.com/thephucit/Tunpass/raw/master/screen4.png" width="800" alt="preview"/>
+<img src="https://github.com/thephucit/Tunpass/raw/master/screen5.png" width="800" alt="preview"/>
 
 ## Development
 
@@ -33,4 +27,4 @@ $ npm run dist:win
 
 ## License
 
-MIT &copy; [ThePhuc](https://gitlab.com/nguyenthephuc)
+MIT &copy; [ThePhuc](https://gitlab.com/thephucit)

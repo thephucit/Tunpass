@@ -1,0 +1,88 @@
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4 class="grey-text"><span class="blue-text text-lighten-1">Tun</span><span class="grey-text text-darken-1">pass</span> Support</h4>
+        <p>Questions about how to use Tunpass? Want it customized for your specific requirements? Feel free to contact me using these channels.</p>
+        <ul>
+            <li><strong>Email:</strong> <a href="mailto:thephuc1601@gmail.com">thephuc1601@gmail.com</a></li>
+            <li><strong>Skype:</strong> <a href="javascript:;">thephuc94</a>
+            </li>
+        </ul>
+        <p>Thank you,<br> The Phuc</p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">OK!</a>
+    </div>
+</div>
+
+<div id="modal2" class="modal">
+    <div class="modal-content">
+        <h4>Change password</h4>
+        <br>
+        <p>
+            <div class="input-field password col s12">
+                <input type="password" ng-model="$parent.$parent.newpass">
+                <label>Password</label>
+                <div class="actions">
+                    <button style="background-color: #fafafa;" class="z-depth-0 grey-text btn tooltipped" data-position="bottom" data-tooltip="show password" ng-click="showpass($event, '$parent.$parent.newpass')">
+                        <i class="material-icons">visibility</i>
+                    </button>
+                </div>
+            </div>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="actionChangePass()" message="Your password was updated" duration="2500" toast='click'>Agree</a>
+    </div>
+</div>
+
+<nav class="light-blue lighten-1" style="display: block; opacity: 1;">
+    <div class="nav-wrapper container">
+        <a id="logo-container" href="javascript:;" class="brand-logo light-blue-text text-lighten-5">
+            <span class="white-text">Tun</span>pass
+        </a>
+
+        <a class='text-white right' href='javascript:void(0);'>
+            <i class="material-icons" data-activates='demoDropdown' dropdown data-hover="false">menu</i>
+        </a>
+
+        <ul id='demoDropdown' class='dropdown-content'>
+            <li style="font-size: 11px"><a data-target='modal1' modal title="Tunpass Help">Support</a></li>
+            <li style="font-size: 11px"><a data-target='modal2' modal>Change password</a></li>
+            <li class="divider" tabindex="-1"></li>
+            <li style="font-size: 11px"><a ng-click="$parent.$parent.state = 'login'">Sign Out</a></li>
+        </ul>
+
+
+    </div>
+
+</nav>
+
+<div class="container" style="display: block; opacity: 1; transform: translateY(0px);">
+    <div class="row">
+        <form class="col s12 m8 l6 offset-m2 offset-l3 center">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input ng-model="search" type="text" placeholder="Keyword" class="validate">
+                    <label for="search" class="active">Search your login</label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="container">
+    <div class="container">
+        <card ng-repeat="(key, value) in tunpassDB | filter : search track by key"
+                ng-model="value"
+                key="key"
+                card-save="actionSave()"
+                card-dele="actionDelete(key)"></card>
+    </div>
+</div>
+
+
+<div class="fixed-action-btn" style="display: block; opacity: 1; transform: scaleX(1) scaleY(1); transform-origin: 50% 50% 0px;">
+    <a class="waves-effect waves-light btn-floating btn-large green darken-1" ng-click="actionAdd()">
+        <i class="large material-icons">add</i>
+    </a>
+</div>

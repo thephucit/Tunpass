@@ -1,0 +1,75 @@
+<!-- Login Cards -->
+<div class="section loginsList itemsList">
+    <div class="row loginSingle itemSingle" data-login-id="5">
+        <div class="col s12 m8 l6 offset-m2 offset-l3">
+            <div class="card hoverable">
+                <div class="card-content">
+                    <span class="card-title grey-text text-darken-4" contenteditable="{{ state == 'edit' + key ? true : false }}" directive ng-model="ngModel.title"></span>
+                    <div ng-init="dropdown = 'dropdownAction' + key"></div>
+                    <ul id="{{dropdown}}" class="dropdown-content">
+                        <li><a class="btnContext" href="javascript:void(0);" ng-click="autoTyping()"><i class="material-icons left">launch</i>Typing</a></li>
+                        <li><a class="btnContext" href="javascript:void(0);" ng-click="state = 'edit' + key"><i class="material-icons left">edit</i>Edit</a></li>
+                        <li><a class="btnContext" href="javascript:void(0);" ng-click="state = 'delete' + key"><i class="material-icons left">delete</i>Delete</a></li>
+                    </ul>
+                    <!-- Dropdown Trigger -->
+                    <a class='singleContextBtn btn-floating waves-effect waves-dark right z-depth-0 grey-text right' href='javascript:void(0);' data-activates='{{dropdown}}' dropdown data-hover="false" style="text-align: right;">
+                        ●●●
+                    </a>
+                    <div class="card-content-inner">
+                        <div ng-switch="state">
+                            <div class="snippet" jj-switch-when="'show'+key">
+                                <p>
+                                    <span class="snippet-field"> <span class="grey-text"><i class="material-icons">link</i></span> &nbsp; <a href="#" data-tooltip="Click to jump to URL" ng-click="openBrowser(ngModel.url)">{{ ngModel.url }}</a> </span> <br>
+                                    <span class="snippet-field"> <span class="grey-text"><i class="material-icons">account_box</i></span> &nbsp; <a class="copy-button" href="#" data-tooltip="Click to copy me" message="Copied to clipboard" duration="1000" toast='click' ng-click="copy(ngModel.username)"> {{ ngModel.username }}</a> </span> <br>
+                                    <span class="snippet-field"> <span class="grey-text"><i class="material-icons">vpn_key</i></span> &nbsp; <a class="copy-button" href="#" data-tooltip="Click to copy me" message="Copied to clipboard" duration="1000" toast='click' ng-click="copy(ngModel.password)"> ●●●●●●●●●</a> </span> <br>
+                                </p>
+                            </div>
+
+                            <div class="edit-form" jj-switch-when="'edit'+key">
+                                <form>
+                                    <div class="row">
+                                        <div class="fields-wrapper">
+                                            <div class="input-field text col s12" data-field-index="13">
+                                                <input type="text" name="url" ng-model="ngModel.url">
+                                                <label class="active" contenteditable="false">URL</label>
+                                            </div>
+                                            <div class="input-field text col s12" data-field-index="15">
+                                                <input type="text" name="username" ng-model="ngModel.username">
+                                                <label class="active" contenteditable="false">Username</label>
+                                            </div>
+                                            <div class="input-field password col s12" data-field-index="14">
+                                                <input type="password" name="password" ng-model="ngModel.password">
+                                                <label class="active" contenteditable="false">Password</label>
+                                                <div class="actions">
+                                                    <button class="z-depth-0 grey-text white btn tooltipped" data-position="bottom" data-tooltip="show password" ng-click="showpass($event)">
+                                                        <i class="material-icons">visibility</i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col s12 right-align">
+                                            <button class="btnCancel z-depth-0 btn waves-effect waves-dark white lighten-2 grey-text text-darken-2" ng-click="$parent.state = 'show' + key">Close</button>
+                                            <button class="btnSave z-depth-0 btn waves-effect waves-light" ng-click="save()">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="delete-form" jj-switch-when="'delete'+key">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <p>Delete this login permanently?</p>
+                                    </div>
+                                    <div class="col s12 right-align">
+                                        <button class="btnCancel z-depth-0 btn waves-effect waves-dark white lighten-2 grey-text text-darken-2" ng-click="$parent.state = 'show' + key">Cancel</button>
+                                        <button class="btnDelete z-depth-0 btn red waves-effect waves-light" ng-click="delete()">Confirm</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

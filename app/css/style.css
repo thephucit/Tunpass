@@ -1,0 +1,522 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ */
+
+ body {
+  background-color: #F3F3F3;
+  margin-top: 0;
+ }
+
+h3 {
+  font-size: 1.7rem;
+}
+
+.material-icons {
+  vertical-align: middle;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+[contentEditable="true"]:focus {
+  outline: none;
+}
+
+.select-wrap {
+  margin: 20px 0;
+}
+
+.dropdown-content {
+  z-index: 1100;
+}
+
+label.active[contentEditable="true"]:hover {
+  outline: dotted 1px #ccc;
+  padding: 3px;
+}
+
+textarea.materialize-textarea {
+  min-height: 4.1rem;
+}
+
+.account-button {
+  padding-right: 4em;
+}
+
+.account-dropdown-icon {
+  position: absolute;
+  top: 0;
+  right: .6em;
+}
+
+.itemsList .well {
+  padding: .75rem;
+  padding-bottom: 1.5rem;
+  margin: 0 0 1em 0 !important;
+  background: #F3F3F3;
+}
+
+/* Fixed action button */
+
+.fixed-action-btn {
+  z-index: 990;
+  bottom: 45px; right: 24px;
+}
+
+/* Header */
+
+#logo-container {
+  font-weight: 700;
+}
+
+.reset-form p.desc {
+  text-align: center;
+}
+
+/* Cards */
+
+.card .card-content {
+  padding: 30px;
+  overflow: hidden;
+  padding-top: 20px;
+}
+.itemsList .card .card-content .card-title {
+  position: relative;
+  z-index: 3;
+  display: block;
+  margin-right: 50px;
+  line-height: 30px;
+  padding: 8px 0;
+}
+.card .card-content .card-title[contentEditable="true"] {
+  padding: 8px;
+  outline: dotted 1px #9e9e9e;
+}
+
+.card.notification {
+  padding: inherit;
+  padding-bottom: 10px
+}
+
+.card.notification .material-icons {
+  line-height: 48px;
+}
+
+.singleContextBtn {
+  position: absolute;
+  z-index: 2;
+  top: 20px;
+  right: 30px;
+  width: 133px;
+  border-radius: 0;
+}
+.singleContextBtn.btn-floating {
+  background-color: transparent;
+}
+
+.singleContextBtn i {
+  text-align: right;
+  line-height: 44px;
+}
+
+.itemsList {
+  position: relative;
+  z-index: 1;
+  transition: opacity ease-out .25s;
+}
+
+.itemsList.loading {
+  opacity: .67;
+}
+
+.itemsList .card {
+  margin: 0;
+}
+
+.itemsList .card-content {
+  padding-bottom: 30px;
+}
+
+.itemsList .row {
+  margin-bottom: 0;
+}
+
+.itemsList .input-field {
+  margin-top: 20px;
+  background-color: #fff;
+}
+
+.input-field.textarea .actions {
+  top: -23px;
+}
+
+.row.itemSingle {
+  margin-bottom: 1px
+;
+  z-index: 1;
+  position: relative;
+}
+
+.actions {
+  position: absolute;
+  right: 10px;
+  top: 0;
+}
+
+.actions .btn {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.field-type-picker {
+  position: relative;
+  top: -13px;
+  margin: 0;
+}
+
+.field-type-picker li {
+  display: inline-block;
+}
+
+.field-type-picker .btn {
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 11px;
+  color: #9e9e9e;
+  background-color: rgb(250, 250, 250);
+}
+
+.field-type-picker .btn.active {
+  background-color: rgb(238, 238, 238);
+}
+
+.btn.expanded {
+  padding-right: 60px;
+}
+
+.btn .preloader-wrapper {
+  position: absolute;
+  top: 6px;
+  right: 25px;
+}
+
+.snippet {
+  transition: height .25s ease-out;
+}
+
+.snippet p {
+  line-height: 1.6;
+  margin: 0;
+}
+
+.snippet-field {
+  position: relative;
+  display: inline-block;
+  padding-right: 70px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.snippet-field .btn {
+  padding: 0 .5rem;
+  position: absolute;
+  z-index: 1;
+  right: 0;
+  top: -27%;
+  background: transparent;
+}
+
+.snippet-field .btn[data-action="showPassword"] { 
+  right: 10px;
+}
+
+/* Menu */
+
+.side-nav .collapsible-header {
+  line-height: 64px;
+  height: 64px;
+}
+
+.side-nav .collapsible-parent {
+  padding: 0;
+}
+
+.side-nav li:hover {
+  background-color: transparent;
+}
+
+.side-nav li.active {
+    background-color: #eee;
+}
+
+.reorderHandle {
+  cursor: move;
+}
+
+.sortable-ghost {
+  position: relative;
+}
+  .sortable-ghost:after {
+    content: "";
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    background: rgb(245, 245, 245);
+    outline: dashed 2px #eee;
+  }
+
+/* Modals */
+
+.modal {
+  max-width: 480px;
+}
+.modal-content h4 {
+  font-weight: 200;
+}
+.modal-content h4 span {
+  font-weight: bold;
+}
+
+/* Form controls */
+
+[type="checkbox"].solo + label {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+  padding: 0;
+  top: 0rem;
+  left: .75rem;
+}
+
+.shade-first-col tr td:first-child {
+  background: rgba(0,0,0,.05);
+}
+
+/* Page: Logins */
+
+#searchForm {
+  z-index: 2;
+  position: relative;
+  margin-top: 30px;
+}
+
+#searchForm form > .row {
+  margin-bottom: 0;
+}
+
+.loginsList .edit-form input[type="text"] {
+  padding-right: 100px;
+  box-sizing: border-box;
+}
+
+.loginsList .edit-form input[type="password"] {
+  padding-right: 170px;
+  box-sizing: border-box;
+}
+
+/* Page: Auth */
+
+.auth {
+  background-color: #eee;
+}
+  .auth .row .card {
+    width: 375px;
+    margin: 0 auto;
+    float: none;
+  }
+
+  .auth .btn-large {
+    width: 100%;
+  }
+
+  .auth .btn .preloader-wrapper {
+    top: 15px;
+  }
+
+  .auth .btn.expanded {
+    padding-right: 2rem;
+  }
+
+.auth-title {
+  font-weight: 700;
+  font-size: 48px;
+}
+
+.forgot-password {
+  display: inline-block;
+  margin-bottom: 26px;
+}
+
+.notification {
+  padding: 15px;
+}
+
+.notification p {
+  overflow: hidden;
+  margin: 0;
+}
+
+/* Page: Users */
+
+.users .primary-actions,
+.categories .primary-actions {
+  margin-top: 40px;
+}
+
+#title h2 {
+  font-weight: 100;
+}
+#title .row {
+  margin-bottom: 0;
+  margin-top: 20px;
+}
+
+/* Page: Installer */
+
+.installer-header {
+  padding-bottom: 0
+}
+
+.installer-title {
+  font-size: 48px;
+  font-weight: 300;
+}
+
+.installer-title .branding {
+  font-weight: 700;
+}
+
+.installer-progress {
+  color: #ccc;
+  background: gray;
+  padding: 14px;
+}
+
+.installer-progress ul {
+  overflow: hidden;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+
+.installer-progress li {
+  display: inline-block;
+  padding: 0 14px;
+}
+
+.installer-progress .active {
+  color: #eee;
+}
+
+.intro {
+  font-size: 24px;
+  font-weight: 300;
+}
+
+.installer .result {
+  display: inline-block;
+  padding: 0 5px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.btn-next {
+  margin-top: 1.4em;
+}
+
+/* Page: Groups */
+
+.acl-table th {
+  width: 25%;
+  font-weight: normal;
+  color: #7f7f7f;
+}
+
+.acl-table [type="checkbox"].solo + label {
+
+}
+
+.itemsList .settings-container.well {
+  margin: 0 !important;
+}
+
+.groupsList .card-content-inner > .row {
+  margin-bottom: 1em;
+}
+
+.ph-help-btn {
+  position: relative;
+  top: -4px;
+  padding: 0 .6rem;
+  opacity: 0.6;
+}
+
+.ph-help-btn:hover {
+  opacity: 1;
+}
+
+/* Page: Tools */
+
+/* Media Queries 
+===============================================*/
+
+/* Matches Materialize "small" breakpoint */
+@media screen and (max-width: 992px) {
+  .settings-container > .s12:first-child {
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  /* Disable re-order handle on mobile sizes until library supports it */
+  .reorderHandle {
+    display: none;
+  }
+  body {
+    margin-top: 80px;
+  }
+  body.auth {
+    margin-top: 0;
+  }
+  nav {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+  }
+  .fixed-action-btn {
+    bottom: inherit;
+    right: inherit;
+    top: 22px;
+    left: 18px;
+  }
+  .fixed-action-btn .btn-large {
+    width: 37px;
+    height: 37px;
+    line-height: 37px;
+  }
+  .fixed-action-btn .btn-floating.btn-large i {
+    line-height: 37px;
+  }
+  #title h2 {
+    margin-top: .5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .auth .row .card {
+    width: 95%;
+  }
+  .auth-title {
+    margin-top: 0;
+  }
+}
