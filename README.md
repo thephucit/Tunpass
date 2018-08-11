@@ -3,10 +3,6 @@
 Easy password management with Tunpass
 
 <img src="https://github.com/thephucit/Tunpass/raw/master/screenshots/screen.png" width="800" alt="preview"/>
-<img src="https://github.com/thephucit/Tunpass/raw/master/screenshots/screen2.png" width="800" alt="preview"/>
-<img src="https://github.com/thephucit/Tunpass/raw/master/screenshots/screen3.png" width="800" alt="preview"/>
-<img src="https://github.com/thephucit/Tunpass/raw/master/screenshots/screen4.png" width="800" alt="preview"/>
-<img src="https://github.com/thephucit/Tunpass/raw/master/screenshots/screen5.png" width="800" alt="preview"/>
 
 ## Development
 
