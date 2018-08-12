@@ -3,7 +3,7 @@
 let app = angular.module('app', ['ui.materialize']);
 
 app.config(['$compileProvider', ($compileProvider) => {
-    $compileProvider.debugInfoEnabled(true);
+    $compileProvider.debugInfoEnabled(false);
 }]);
 
 app.controller('indexController', function ($scope, $http) {
