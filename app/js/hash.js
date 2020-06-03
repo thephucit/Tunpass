@@ -1,6 +1,6 @@
 let crypto    = require('crypto'),
     algorithm = 'aes-128-cbc',
-    password  = 'nguyenthephuc-16011994';
+    password  = '46a4a67a-2043-4cf5-982d-bb545ea50229-46a4a67a-2043-4cf5-982d-bb545ea50229';
 
 module.exports = {
 

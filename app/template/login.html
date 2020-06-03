@@ -14,14 +14,17 @@
                         <div ng-show="login_failed" class="notification yellow lighten-3 left-align"><i class="material-icons left">error_outline</i><p>incorrect login, please try again</p></div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="password" type="password" ng-model="$parent.$parent.password" class="validate">
+                                <input id="password" type="password" ng-model="$parent.$parent.password" class="validate center-align">
                                 <label for="password">Password</label>
                             </div>
                             <div class="col s12 right-align" ng-if="!currPass">
                                 <a class="forgot-password teal-text" style="cursor: pointer;" data-target='modalSetupPass' modal>Setup your password?</a>
                             </div>
+                            <div class="col s12 right-align" ng-if="currPass">
+                                <a class="forgot-password teal-text" style="cursor: pointer;" data-target='modalResetPass' modal>Reset password</a>
+                            </div>
                             <div class="col s12">
-                                <button class="btn btn-large waves-effect waves-light blue" type="button" ng-click="actionLogin()">Sign in</button>
+                                <button class="btn btn-small waves-effect waves-light blue" type="button" ng-click="actionLogin()">Sign in</button>
                             </div>
                         </div>
                     </form>
@@ -31,6 +34,7 @@
     </div>
 </div>
 
+<!-- POPUP SET PASS -->
 <div id="modalSetupPass" class="modal">
     <div class="modal-content">
         <h4>Setup password</h4>
@@ -38,6 +42,17 @@
         <p>
             <div class="input-field password col s12">
                 <input type="password" ng-model="$parent.$parent.initPass">
+                <div class="notification yellow lighten-3 left-align">
+                    <i class="material-icons left">error_outline</i>
+                    <p>Please take a minute to write down your recovery code. The recovery code is the only option to reset your password or second factor in case you lose either.</p>
+                    <div class="col s12 m6">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                 <p>{{ geRecovery }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <label>Password</label>
                 <div class="actions">
                     <button style="background-color: #fafafa;" class="z-depth-0 grey-text btn tooltipped" data-position="bottom" data-tooltip="show password" ng-click="showpass($event, '$parent.$parent.initPass')">
@@ -48,6 +63,33 @@
         </p>
     </div>
     <div class="modal-footer">
-        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="actionInitPass()" message="Your password was updated" duration="2500" toast='click'>Agree</a>
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="actionInitPass()">Agree</a>
+    </div>
+</div>
+
+<!-- POPUP RESET PASS -->
+<div id="modalResetPass" class="modal">
+    <div class="modal-content">
+        <h4>Reset password</h4>
+        <br>
+        <p>
+            <div class="input-field col s12">
+                <input type="text" ng-model="$parent.$parent.checkrecovery">
+                <label>Recovery code</label>
+            </div>
+
+            <div class="input-field password col s12">
+                <input type="password" ng-model="$parent.$parent.newpass">
+                <label>New password</label>
+                <div class="actions">
+                    <button style="background-color: #fafafa;" class="z-depth-0 grey-text btn tooltipped" data-position="bottom" data-tooltip="show password" ng-click="showpass($event, '$parent.$parent.newpass')">
+                        <i class="material-icons">visibility</i>
+                    </button>
+                </div>
+            </div>
+        </p>
+    </div>
+    <div class="modal-footer">
+        <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" ng-click="actionResetPass()">Reset</a>
     </div>
 </div>

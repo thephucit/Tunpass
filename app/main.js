@@ -13,8 +13,8 @@ function createWindow() {
     mainWindow = new BrowserWindow({
         title: app.getName(),
         icon: path.join(__dirname, '../build/icon.ico'),
-        width: 430,
-        height: 665,
+        width: 400,
+        height: 700,
         resizable: false,
         webPreferences: { devTools: false }
     })

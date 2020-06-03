@@ -14,6 +14,7 @@
     "electron-config": "^0.2.1",
     "electron-context-menu": "^0.8.0",
     "electron-debug": "^1.1.0",
-    "robotjs": "^0.5.1"
+    "robotjs": "^0.5.1",
+    "uuidv4": "^6.1.0"
   }
 }
