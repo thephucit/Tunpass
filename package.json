@@ -10,16 +10,16 @@
         "lint": "xo",
         "start": "electron .",
         "dist": "npm run dist:mac && npm run dist:deb && npm run dist:win",
-        "dist:mac": "build --mac",
-        "dist:linux": "build --linux deb tar.xz",
-        "dist:win": "build --win --ia32",
-        "dist:win64": "build --win --ia64",
-        "release": "build"
+        "dist:mac": "electron-builder --mac",
+        "dist:linux": "electron-builder --linux deb tar.xz",
+        "dist:win": "electron-builder --win --ia32",
+        "dist:win64": "electron-builder --win --x64",
+        "release": "electron-builder"
     },
     "devDependencies": {
         "devtron": "^1.4.0",
         "electron": "^2.0.7",
-        "electron-builder": "^19.37.2",
+        "electron-builder": "^22.7.0",
         "electron-devtools-installer": "^2.2.1",
         "eslint-config-rem": "^3.2.0",
         "minimist": "^1.2.0",

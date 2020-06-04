@@ -46,6 +46,7 @@ const electron    = require('electron');
 const {clipboard} = require('electron');
 const shell       = require('electron').shell;
 const robot       = require('robotjs');
+const os          = process.platform;
 
 app.directive('card', function() {
     return {
@@ -93,7 +94,7 @@ app.directive('card', function() {
             }
 
             scope.autoTyping = async () => {
-                await robot.keyTap('tab', ['command']);
+                await robot.keyTap('tab', [os.includes('darwin') ? 'command' : 'alt']);
                 await robot.keyTap('tab');
                 await robot.typeString(scope.ngModel.username);
                 await robot.keyTap('tab');
@@ -102,6 +103,25 @@ app.directive('card', function() {
             }
 
             scope.openBrowser = (url) => shell.openExternal(url);
+
+            scope.closeSave = (key) => {
+                if (! scope.ngModel.url &&
+                    ! scope.ngModel.title &&
+                    ! scope.ngModel.password &&
+                    ! scope.ngModel.username) {
+                    return scope.cardDele();
+                } else {
+                    scope.state = 'show' + key
+                }
+            }
+
+            scope.dropdownClicked = (ele) => {
+                let dropdown1 = document.getElementById(ele);
+                let dropdown2 = document.getElementById(ele + 'dropdown');
+                dropdown1.style.display = 'none';
+                dropdown1.classList.remove('active');
+                dropdown2.classList.remove('active');
+            }
 
             scope.$watch('ngModel', function() {
                 scope.state = ctrl.$modelValue.state + scope.key;

@@ -6,13 +6,13 @@
                 <div class="card-content">
                     <span class="card-title grey-text text-darken-4" contenteditable="{{ state == 'edit' + key ? true : false }}" directive ng-model="ngModel.title"></span>
                     <div ng-init="dropdown = 'dropdownAction' + key"></div>
-                    <ul id="{{dropdown}}" class="dropdown-content">
-                        <li><a class="btnContext" href="javascript:void(0);" ng-click="autoTyping()"><i class="material-icons left">launch</i>Typing</a></li>
-                        <li><a class="btnContext" href="javascript:void(0);" ng-click="state = 'edit' + key"><i class="material-icons left">edit</i>Edit</a></li>
-                        <li><a class="btnContext" href="javascript:void(0);" ng-click="state = 'delete' + key"><i class="material-icons left">delete</i>Delete</a></li>
+                    <ul id="{{ dropdown }}" class="dropdown-content">
+                        <li ng-click="dropdownClicked(dropdown)"><a class="btnContext" href="javascript:void(0);" ng-click="autoTyping()"><i class="material-icons left">launch</i>Typing</a></li>
+                        <li ng-click="dropdownClicked(dropdown)"><a class="btnContext" href="javascript:void(0);" ng-click="state = 'edit' + key"><i class="material-icons left">edit</i>Edit</a></li>
+                        <li ng-click="dropdownClicked(dropdown)"><a class="btnContext" href="javascript:void(0);" ng-click="state = 'delete' + key"><i class="material-icons left">delete</i>Delete</a></li>
                     </ul>
                     <!-- Dropdown Trigger -->
-                    <a class='singleContextBtn btn-floating waves-effect waves-dark right z-depth-0 grey-text right' href='javascript:void(0);' data-activates='{{dropdown}}' dropdown data-hover="false" style="text-align: right;">
+                    <a id="{{ dropdown + 'dropdown' }}" class='singleContextBtn btn-floating waves-effect waves-dark right z-depth-0 grey-text right' href='javascript:void(0);' data-activates='{{dropdown}}' dropdown data-hover="false" style="text-align: right;">
                         ●●●
                     </a>
                     <div class="card-content-inner">
@@ -48,7 +48,7 @@
                                             </div>
                                         </div>
                                         <div class="col s12 right-align">
-                                            <button class="btnCancel z-depth-0 btn waves-effect waves-dark white lighten-2 grey-text text-darken-2" ng-click="$parent.state = 'show' + key">Close</button>
+                                            <button class="btnCancel z-depth-0 btn waves-effect waves-dark white lighten-2 grey-text text-darken-2" ng-click="closeSave(key)">Close</button>
                                             <button class="btnSave z-depth-0 btn waves-effect waves-light" ng-click="save()">Save</button>
                                         </div>
                                     </div>
@@ -56,7 +56,7 @@
                             </div>
                             <div class="delete-form" jj-switch-when="'delete'+key">
                                 <div class="row">
-                                    <div class="col s12">
+                                    <div class="col s12" style="margin-bottom: 10px">
                                         <p>Delete this login permanently?</p>
                                     </div>
                                     <div class="col s12 right-align">
