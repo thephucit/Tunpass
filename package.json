@@ -22,7 +22,7 @@
         "electron-builder": "^22.7.0",
         "electron-devtools-installer": "^2.2.1",
         "eslint-config-rem": "^3.2.0",
-        "minimist": "^1.2.0",
+        "minimist": "^1.2.3",
         "xo": "^0.18.2"
     },
     "xo": {
