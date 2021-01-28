@@ -18,7 +18,7 @@
     },
     "devDependencies": {
         "devtron": "^1.4.0",
-        "electron": "^2.0.7",
+        "electron": "^9.4.0",
         "electron-builder": "^22.7.0",
         "electron-devtools-installer": "^2.2.1",
         "eslint-config-rem": "^3.2.0",
